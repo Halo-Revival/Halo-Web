@@ -310,6 +310,33 @@
       gap: clamp(24px, 5vw, 76px);
     }
 
+    .notice {
+      display: grid;
+      grid-template-columns: 0.8fr 1.2fr;
+      gap: clamp(24px, 5vw, 64px);
+      padding: clamp(28px, 5vw, 46px);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--white);
+    }
+
+    .notice h3 {
+      margin: 0 0 10px;
+      font-size: clamp(24px, 3vw, 34px);
+      line-height: 1.08;
+    }
+
+    .notice p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.62;
+    }
+
+    .notice-stack {
+      display: grid;
+      gap: 22px;
+    }
+
     details {
       padding: 22px 0;
       border-bottom: 1px solid var(--line);
@@ -349,7 +376,8 @@
       }
       .intro,
       .split,
-      .faq {
+      .faq,
+      .notice {
         grid-template-columns: 1fr;
       }
       .feature-grid {
@@ -449,6 +477,29 @@
           <div class="check"><span>✓</span> Private medspa database</div>
           <div class="check"><span>✓</span> Saved providers and booking requests</div>
           <div class="check"><span>✓</span> Face planning and reference notes</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="notice">
+        <div>
+          <p class="section-label">Face morph preview</p>
+          <h2>Visual planning, kept in context.</h2>
+        </div>
+        <div class="notice-stack">
+          <div>
+            <h3>A high-level preview tool</h3>
+            <p>Halo Revival is building a face morph feature that helps people visualize aesthetic goals before a consult. It is meant to organize ideas, compare possible directions, and make conversations with qualified providers more focused.</p>
+          </div>
+          <div>
+            <h3>Educational visual simulation only</h3>
+            <p>This software is a visual simulation utility intended for educational purposes only. It does not provide medical diagnoses, treatment recommendations, or clinical advice. Only a board-certified medical professional can determine physical candidacy, surgical safety, and specific procedural outcomes.</p>
+          </div>
+          <div>
+            <h3>How the mapping works</h3>
+            <p>Scores and morph previews are based on uploaded photos, estimated facial landmarks, and user-adjusted marker positions. Accuracy depends on photo angle, lighting, lens distortion, marker placement, and whether MediaPipe loads successfully. These outputs are not validated clinical measurements.</p>
+          </div>
         </div>
       </div>
     </section>
