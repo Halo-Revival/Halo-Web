@@ -7,25 +7,25 @@
   <meta name="description" content="Halo Revival helps you plan aesthetic goals, compare surgeons and medspas, and book consults with more clarity.">
   <style>
     :root {
-      --ink: #171512;
-      --muted: #70695f;
+      --ink: #090806;
+      --soft-ink: #3c3833;
+      --muted: #76706a;
       --paper: #fbfaf7;
-      --line: #e7ded4;
-      --rose: #b96358;
-      --moss: #51604d;
-      --gold: #b38a44;
       --white: #ffffff;
-      --shadow: 0 24px 80px rgba(28, 24, 18, 0.18);
-      --radius: 8px;
+      --orange: #ff6b1a;
+      --orange-deep: #db4f13;
+      --gold: #ffc06a;
+      --line: rgba(9, 8, 6, 0.12);
+      --radius: 30px;
+      --shadow: 0 28px 90px rgba(35, 23, 9, 0.16);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     }
 
     * { box-sizing: border-box; }
-
     html { scroll-behavior: smooth; }
 
     body {
       margin: 0;
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       color: var(--ink);
       background: var(--paper);
       letter-spacing: 0;
@@ -33,383 +33,558 @@
 
     a { color: inherit; text-decoration: none; }
 
-    button, a { -webkit-tap-highlight-color: transparent; }
-
     .nav {
       position: fixed;
-      z-index: 10;
-      top: 0;
-      left: 0;
-      width: 100%;
+      z-index: 20;
+      top: 24px;
+      left: 50%;
+      width: min(1200px, calc(100% - 48px));
+      min-height: 58px;
+      transform: translateX(-50%);
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 18px clamp(18px, 5vw, 64px);
+      gap: 18px;
+      padding: 8px 10px 8px 26px;
       color: var(--white);
+      background: rgba(8, 7, 6, 0.94);
+      border: 1px solid rgba(255, 255, 255, 0.09);
+      border-radius: 999px;
+      box-shadow: 0 18px 48px rgba(0, 0, 0, 0.24);
+      backdrop-filter: blur(18px);
     }
 
     .brand {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-weight: 750;
-      font-size: 18px;
-    }
-
-    .brand-mark {
-      width: 34px;
-      height: 34px;
-      display: grid;
-      place-items: center;
-      border: 1px solid rgba(255,255,255,0.7);
-      border-radius: 50%;
-      font-family: Georgia, serif;
-      font-size: 18px;
-      background: rgba(255,255,255,0.14);
-      backdrop-filter: blur(16px);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      white-space: nowrap;
     }
 
     .nav-links {
       display: flex;
       align-items: center;
-      gap: 22px;
+      gap: 24px;
+      color: rgba(255, 255, 255, 0.86);
       font-size: 14px;
-      font-weight: 650;
+      font-weight: 600;
+    }
+
+    .nav-cta,
+    .hero-cta,
+    .section-cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 999px;
+      background: linear-gradient(180deg, #ff812d, var(--orange));
+      color: var(--white);
+      font-weight: 800;
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.28), 0 14px 30px rgba(255, 107, 26, 0.25);
     }
 
     .nav-cta {
-      padding: 10px 14px;
-      border: 1px solid rgba(255,255,255,0.55);
-      border-radius: var(--radius);
-      background: rgba(255,255,255,0.14);
-      backdrop-filter: blur(16px);
+      min-height: 42px;
+      padding: 0 18px;
     }
 
     .hero {
-      min-height: 92vh;
-      position: relative;
+      min-height: 100vh;
       display: grid;
       align-items: end;
+      position: relative;
       overflow: hidden;
       color: var(--white);
       background:
-        linear-gradient(90deg, rgba(17, 14, 11, 0.72) 0%, rgba(17, 14, 11, 0.48) 45%, rgba(17, 14, 11, 0.08) 100%),
-        url("https://images.unsplash.com/photo-1629909615184-74f495363b67?auto=format&fit=crop&w=2400&q=84") center/cover;
+        linear-gradient(180deg, rgba(0, 0, 0, 0.12), rgba(0, 0, 0, 0.18) 48%, rgba(0, 0, 0, 0.48)),
+        linear-gradient(90deg, rgba(75, 18, 0, 0.78), rgba(255, 111, 25, 0.22)),
+        url("https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=2400&q=82") center/cover;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: auto 0 0;
+      height: 34vh;
+      background: linear-gradient(180deg, transparent, rgba(0, 0, 0, 0.44));
+      pointer-events: none;
     }
 
     .hero-inner {
-      width: min(1180px, calc(100% - 36px));
+      position: relative;
+      z-index: 1;
+      width: min(1200px, calc(100% - 48px));
       margin: 0 auto;
-      padding: 124px 0 72px;
+      padding: 148px 0 96px;
       display: grid;
-      grid-template-columns: minmax(0, 760px);
-      gap: clamp(28px, 6vw, 92px);
+      grid-template-columns: 1fr minmax(260px, 420px);
+      gap: clamp(28px, 7vw, 110px);
       align-items: end;
     }
 
-    .eyebrow {
-      margin: 0 0 16px;
-      font-size: 13px;
-      line-height: 1;
-      font-weight: 750;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.78);
-    }
-
-    h1 {
+    .hero h1 {
       margin: 0;
       max-width: 760px;
-      font-size: clamp(58px, 8vw, 112px);
-      line-height: 0.92;
+      font-size: clamp(84px, 15vw, 216px);
+      line-height: 0.76;
+      letter-spacing: -0.075em;
+      font-family: Georgia, "Times New Roman", serif;
       font-weight: 800;
-      letter-spacing: 0;
+      text-wrap: balance;
+    }
+
+    .hero-submark {
+      display: block;
+      margin-top: 28px;
+      padding-left: 1vw;
+      font-size: clamp(18px, 2.4vw, 34px);
+      line-height: 1;
+      font-weight: 900;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
     }
 
     .hero-copy {
-      max-width: 620px;
-      margin: 22px 0 0;
-      color: rgba(255,255,255,0.84);
+      margin: 0 0 20px;
+      max-width: 380px;
+      color: rgba(255, 255, 255, 0.9);
       font-size: clamp(18px, 2vw, 22px);
-      line-height: 1.45;
+      line-height: 1.35;
+      font-weight: 600;
+      text-wrap: balance;
     }
 
-    .store-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin-top: 30px;
-    }
-
-    .store-button {
-      display: flex;
-      align-items: center;
-      gap: 10px;
+    .hero-cta {
       min-height: 54px;
-      padding: 10px 16px;
-      border-radius: var(--radius);
-      background: var(--white);
-      color: var(--ink);
-      box-shadow: 0 18px 44px rgba(0,0,0,0.18);
-      font-weight: 760;
+      padding: 0 24px;
+      font-size: 15px;
     }
 
-    .store-button span {
-      display: block;
-      color: var(--muted);
-      font-size: 11px;
-      font-weight: 700;
-      line-height: 1.1;
-    }
-
-    .store-icon {
-      width: 24px;
-      height: 24px;
-      display: grid;
-      place-items: center;
-      border-radius: 6px;
-      background: var(--ink);
-      color: var(--white);
-      font-size: 13px;
+    .rounded-panel {
+      position: relative;
+      z-index: 2;
+      margin-top: -72px;
+      padding: clamp(48px, 7vw, 86px) 0;
+      background: var(--paper);
+      border-radius: 46px 46px 0 0;
     }
 
     .section {
-      width: min(1160px, calc(100% - 36px));
+      width: min(1200px, calc(100% - 48px));
       margin: 0 auto;
-      padding: 78px 0;
+      padding: clamp(58px, 8vw, 104px) 0;
+      border-bottom: 1px solid var(--line);
     }
 
-    .intro {
+    .section:last-child { border-bottom: 0; }
+
+    .section-head {
       display: grid;
-      grid-template-columns: 0.86fr 1.14fr;
-      gap: clamp(26px, 5vw, 74px);
+      grid-template-columns: 190px 1fr 48px;
+      gap: clamp(18px, 5vw, 72px);
       align-items: start;
+      margin-bottom: clamp(32px, 5vw, 64px);
     }
 
-    .section-label {
-      margin: 0 0 12px;
-      color: var(--rose);
-      font-size: 13px;
+    .kicker {
+      margin: 0;
+      font-size: 17px;
       font-weight: 800;
-      text-transform: uppercase;
+    }
+
+    .index {
+      justify-self: end;
+      color: var(--muted);
+      font-size: 16px;
     }
 
     h2 {
       margin: 0;
-      font-size: clamp(34px, 5vw, 62px);
-      line-height: 1;
-      font-weight: 790;
-      letter-spacing: 0;
+      max-width: 920px;
+      font-size: clamp(48px, 7vw, 92px);
+      line-height: 0.95;
+      letter-spacing: -0.065em;
+      font-weight: 760;
+      text-wrap: balance;
     }
 
     .lead {
-      margin: 0;
-      color: var(--muted);
+      max-width: 720px;
+      margin: 24px 0 0;
+      color: var(--soft-ink);
       font-size: clamp(18px, 2vw, 22px);
-      line-height: 1.55;
+      line-height: 1.52;
+      font-weight: 520;
     }
 
-    .feature-grid {
+    .steps {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 14px;
-      margin-top: 36px;
     }
 
-    .feature {
-      min-height: 220px;
-      padding: 24px;
+    .step,
+    .offer-card {
+      min-height: 280px;
+      padding: 28px;
       border: 1px solid var(--line);
       border-radius: var(--radius);
       background: var(--white);
     }
 
-    .feature:nth-child(2) { background: #eef0ea; }
-    .feature:nth-child(3) { background: #f3e8e4; }
-
-    .feature-icon {
+    .step-number,
+    .offer-number {
       width: 38px;
       height: 38px;
       display: grid;
       place-items: center;
-      margin-bottom: 34px;
+      margin-bottom: 68px;
       border-radius: 50%;
-      border: 1px solid currentColor;
-      color: var(--moss);
-      font-weight: 800;
+      background: var(--ink);
+      color: var(--white);
+      font-weight: 900;
     }
 
-    .feature h3 {
-      margin: 0 0 10px;
-      font-size: 21px;
+    .step h3,
+    .offer-card h3 {
+      margin: 0 0 12px;
+      font-size: 24px;
+      line-height: 1.02;
+      letter-spacing: -0.035em;
     }
 
-    .feature p {
+    .step p,
+    .offer-card p {
       margin: 0;
       color: var(--muted);
-      line-height: 1.5;
+      font-size: 16px;
+      line-height: 1.55;
     }
 
-    .split {
+    .model-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
+      grid-template-columns: 0.92fr 1.08fr;
+      gap: 18px;
       align-items: stretch;
     }
 
-    .photo-panel {
+    .model-visual {
       min-height: 520px;
       border-radius: var(--radius);
-      background: url("https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=1600&q=84") center/cover;
+      background:
+        linear-gradient(180deg, rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0.2)),
+        url("https://images.unsplash.com/photo-1559757148-5c350d0d3c56?auto=format&fit=crop&w=1400&q=82") center/cover;
+      box-shadow: var(--shadow);
     }
 
-    .copy-panel {
-      padding: clamp(30px, 5vw, 60px);
+    .model-panel {
+      display: grid;
+      align-content: space-between;
+      gap: 28px;
+      min-height: 520px;
+      padding: clamp(30px, 5vw, 54px);
       border-radius: var(--radius);
-      background: #1f241d;
+      background: #10100f;
       color: var(--white);
+    }
+
+    .model-panel h3 {
+      margin: 0;
+      max-width: 560px;
+      font-size: clamp(36px, 5vw, 70px);
+      line-height: 0.98;
+      letter-spacing: -0.055em;
+      text-wrap: balance;
+    }
+
+    .model-panel p {
+      max-width: 520px;
+      margin: 0;
+      color: rgba(255, 255, 255, 0.74);
+      font-size: 18px;
+      line-height: 1.55;
+    }
+
+    .mini-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+
+    .mini {
+      padding: 18px;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    .mini strong {
+      display: block;
+      margin-bottom: 10px;
+      font-size: 15px;
+    }
+
+    .mini span {
+      color: rgba(255, 255, 255, 0.66);
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    .offer-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .offer-card {
+      min-height: 330px;
       display: flex;
       flex-direction: column;
-      justify-content: center;
+      justify-content: space-between;
     }
 
-    .copy-panel p {
-      color: rgba(255,255,255,0.74);
-      line-height: 1.65;
-      font-size: 18px;
+    .offer-card:nth-child(2) {
+      background: #f3f0eb;
     }
 
-    .checklist {
+    .offer-card:nth-child(3) {
+      background: #fff2e9;
+    }
+
+    .offer-card:nth-child(4) {
+      background: #eef0e9;
+    }
+
+    .reviews {
+      overflow: hidden;
+    }
+
+    .review-grid {
       display: grid;
-      gap: 14px;
-      margin-top: 22px;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
     }
 
-    .check {
+    .review-card {
+      min-height: 360px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 28px;
+      border-radius: 12px;
+      color: var(--white);
+      background:
+        radial-gradient(circle at 18% 12%, rgba(255, 255, 255, 0.14), transparent 24%),
+        linear-gradient(135deg, #ff8a1b 0%, #ff6818 56%, #ed5312 100%);
+      box-shadow: 0 20px 60px rgba(255, 107, 26, 0.16);
+    }
+
+    .review-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      color: rgba(255, 255, 255, 0.86);
+      font-size: 14px;
+      font-weight: 800;
+    }
+
+    .review-card blockquote {
+      margin: 34px 0;
+      font-size: clamp(24px, 2.4vw, 32px);
+      line-height: 1.12;
+      letter-spacing: -0.04em;
+      font-weight: 720;
+    }
+
+    .review-person {
       display: flex;
       align-items: center;
       gap: 12px;
-      color: rgba(255,255,255,0.9);
-      font-weight: 680;
+      font-weight: 800;
     }
 
-    .check span {
-      width: 25px;
-      height: 25px;
+    .avatar {
+      width: 48px;
+      height: 48px;
       display: grid;
       place-items: center;
-      flex: 0 0 auto;
       border-radius: 50%;
-      background: var(--gold);
-      color: var(--ink);
-      font-size: 13px;
+      background: rgba(0, 0, 0, 0.22);
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.3);
     }
 
-    .faq {
+    .faq-grid {
       display: grid;
-      grid-template-columns: 0.7fr 1.3fr;
-      gap: clamp(24px, 5vw, 76px);
-    }
-
-    .notice {
-      display: grid;
-      grid-template-columns: 0.8fr 1.2fr;
-      gap: clamp(24px, 5vw, 64px);
-      padding: clamp(28px, 5vw, 46px);
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      background: var(--white);
-    }
-
-    .notice h3 {
-      margin: 0 0 10px;
-      font-size: clamp(24px, 3vw, 34px);
-      line-height: 1.08;
-    }
-
-    .notice p {
-      margin: 0;
-      color: var(--muted);
-      line-height: 1.62;
-    }
-
-    .notice-stack {
-      display: grid;
-      gap: 22px;
+      grid-template-columns: 0.85fr 1.15fr;
+      gap: clamp(28px, 6vw, 86px);
+      align-items: start;
     }
 
     details {
-      padding: 22px 0;
+      padding: 24px 0;
       border-bottom: 1px solid var(--line);
     }
 
     summary {
       cursor: pointer;
       list-style: none;
-      font-size: 20px;
+      font-size: clamp(22px, 2.5vw, 34px);
+      line-height: 1.05;
+      letter-spacing: -0.04em;
       font-weight: 760;
     }
 
     summary::-webkit-details-marker { display: none; }
 
     details p {
-      margin: 12px 0 0;
+      max-width: 720px;
+      margin: 14px 0 0;
       color: var(--muted);
-      line-height: 1.6;
+      font-size: 17px;
+      line-height: 1.58;
+    }
+
+    .final {
+      width: min(1200px, calc(100% - 48px));
+      margin: 0 auto 44px;
+      padding: clamp(44px, 7vw, 74px);
+      border-radius: 36px;
+      color: var(--white);
+      background:
+        linear-gradient(135deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.12)),
+        url("https://images.unsplash.com/photo-1519494080410-f9aa8f52f1e7?auto=format&fit=crop&w=1800&q=82") center/cover;
+      box-shadow: var(--shadow);
+    }
+
+    .final h2 {
+      max-width: 780px;
+      color: var(--white);
+    }
+
+    .section-cta {
+      min-height: 54px;
+      margin-top: 30px;
+      padding: 0 24px;
     }
 
     .footer {
-      padding: 34px clamp(18px, 5vw, 64px);
+      width: min(1200px, calc(100% - 48px));
+      margin: 0 auto;
+      padding: 28px 0 42px;
       display: flex;
       justify-content: space-between;
       gap: 18px;
       color: var(--muted);
-      border-top: 1px solid var(--line);
       font-size: 14px;
     }
 
-    @media (max-width: 860px) {
-      .nav-links a:not(.nav-cta) { display: none; }
-      .hero { min-height: auto; }
+    @media (max-width: 920px) {
+      .nav {
+        top: 14px;
+        width: min(100% - 28px, 720px);
+        padding-left: 20px;
+      }
+
+      .nav-links a:not(.nav-cta) {
+        display: none;
+      }
+
+      .hero-inner,
+      .section-head,
+      .model-grid,
+      .faq-grid {
+        grid-template-columns: 1fr;
+      }
+
       .hero-inner {
-        grid-template-columns: 1fr;
-        padding: 108px 0 42px;
+        padding-top: 124px;
       }
-      .intro,
-      .split,
-      .faq,
-      .notice {
+
+      .index {
+        justify-self: start;
+      }
+
+      .steps,
+      .review-grid,
+      .mini-grid {
         grid-template-columns: 1fr;
       }
-      .feature-grid {
+
+      .offer-grid {
         grid-template-columns: 1fr;
       }
-      .section { padding: 56px 0; }
-      .photo-panel { min-height: 320px; }
-      .footer { flex-direction: column; }
     }
 
-    @media (max-width: 520px) {
-      .nav { padding: 14px 16px; }
-      .brand { font-size: 16px; }
-      .nav-cta { padding: 9px 11px; }
-      h1 { font-size: 54px; }
-      .hero-copy { font-size: 17px; }
-      .store-button {
-        width: 100%;
-        justify-content: center;
+    @media (max-width: 560px) {
+      .nav {
+        min-height: 54px;
+      }
+
+      .brand {
+        font-size: 18px;
+      }
+
+      .nav-cta {
+        min-height: 38px;
+        padding: 0 14px;
+        font-size: 13px;
+      }
+
+      .hero-inner,
+      .section,
+      .final,
+      .footer {
+        width: min(100% - 28px, 1200px);
+      }
+
+      .hero {
+        min-height: 92vh;
+      }
+
+      .hero h1 {
+        font-size: clamp(70px, 23vw, 120px);
+      }
+
+      .rounded-panel {
+        margin-top: -44px;
+        border-radius: 30px 30px 0 0;
+      }
+
+      .section-head {
+        margin-bottom: 30px;
+      }
+
+      .step,
+      .offer-card,
+      .review-card {
+        min-height: auto;
+      }
+
+      .step-number,
+      .offer-number {
+        margin-bottom: 34px;
+      }
+
+      .model-visual,
+      .model-panel {
+        min-height: 420px;
+      }
+
+      .footer {
+        flex-direction: column;
       }
     }
   </style>
 </head>
 <body>
   <nav class="nav" aria-label="Primary">
-    <a class="brand" href="#top" aria-label="Halo Revival home">
-      <span class="brand-mark">H</span>
-      Halo Revival
-    </a>
+    <a class="brand" href="#top" aria-label="Halo Revival home">halo</a>
     <div class="nav-links">
-      <a href="#inside">Inside</a>
-      <a href="#care">Care</a>
+      <a href="#how">How it works</a>
+      <a href="#model">The model</a>
+      <a href="#offer">What it does</a>
+      <a href="#reviews">Reviews</a>
       <a href="#faq">FAQ</a>
       <a class="nav-cta" href="https://forms.gle/JHVwsJKobCqDxJvh8" target="_blank" rel="noreferrer">Join waitlist</a>
     </div>
@@ -419,114 +594,167 @@
     <section class="hero" aria-label="Halo Revival">
       <div class="hero-inner">
         <div>
-          <p class="eyebrow">Aesthetic planning, without the noise</p>
           <h1>Halo Revival</h1>
-          <p class="hero-copy">Plan your look, compare vetted surgeons and medspas, and turn scattered research into a consult-ready path.</p>
-          <div class="store-row" aria-label="App links">
-            <a class="store-button" href="https://forms.gle/JHVwsJKobCqDxJvh8" target="_blank" rel="noreferrer">
-              <span class="store-icon"></span>
-              <span>Coming soon</span>
-              App Store
-            </a>
-            <a class="store-button" href="https://forms.gle/JHVwsJKobCqDxJvh8" target="_blank" rel="noreferrer">
-              <span class="store-icon">?</span>
-              <span>Launching soon</span>
-              Join waitlist
-            </a>
-          </div>
+          <span class="hero-submark">Aesthetic planning lab</span>
         </div>
-      </div>
-    </section>
-
-    <section class="section intro" id="inside">
-      <div>
-        <p class="section-label">Inside the app</p>
-        <h2>A calmer way to decide what comes next.</h2>
-      </div>
-      <p class="lead">Halo Revival keeps the clinical side organized: surgeon consults, medspa providers, face planning notes, saved treatments, and booking requests all live in one focused space.</p>
-    </section>
-
-    <section class="section">
-      <div class="feature-grid">
-        <article class="feature">
-          <div class="feature-icon">1</div>
-          <h3>Search by intent</h3>
-          <p>Look for surgeons by procedure goals, location, consult type, or specialty, then compare them without juggling tabs.</p>
-        </article>
-        <article class="feature">
-          <div class="feature-icon">2</div>
-          <h3>Separate medspas</h3>
-          <p>Browse injectables, skin, laser, and wellness providers in a dedicated medspa experience.</p>
-        </article>
-        <article class="feature">
-          <div class="feature-icon">3</div>
-          <h3>Prepare better</h3>
-          <p>Build a checklist, upload reference images, and save questions before a consult instead of deciding under pressure.</p>
-        </article>
-      </div>
-    </section>
-
-    <section class="section split" id="care">
-      <div class="photo-panel" aria-label="Aesthetic clinic environment"></div>
-      <div class="copy-panel">
-        <p class="section-label">Surgeons and medspas</p>
-        <h2>One app for the full aesthetic path.</h2>
-        <p>From facial surgery research to maintenance treatments, Halo Revival separates providers by category and location while keeping your goals connected.</p>
-        <div class="checklist">
-          <div class="check"><span>✓</span> Surgeon consult search</div>
-          <div class="check"><span>✓</span> Private medspa database</div>
-          <div class="check"><span>✓</span> Saved providers and booking requests</div>
-          <div class="check"><span>✓</span> Face planning and reference notes</div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="notice">
         <div>
-          <p class="section-label">Face morph preview</p>
-          <h2>Visual planning, kept in context.</h2>
-        </div>
-        <div class="notice-stack">
-          <div>
-            <h3>A high-level preview tool</h3>
-            <p>Halo Revival is building a face morph feature that helps people visualize aesthetic goals before a consult. It is meant to organize ideas, compare possible directions, and make conversations with qualified providers more focused.</p>
-          </div>
-          <div>
-            <h3>Educational visual simulation only</h3>
-            <p>This software is a visual simulation utility intended for educational purposes only. It does not provide medical diagnoses, treatment recommendations, or clinical advice. Only a board-certified medical professional can determine physical candidacy, surgical safety, and specific procedural outcomes.</p>
-          </div>
-          <div>
-            <h3>How the mapping works</h3>
-            <p>Scores and morph previews are based on uploaded photos, estimated facial landmarks, and user-adjusted marker positions. Accuracy depends on photo angle, lighting, lens distortion, marker placement, and whether MediaPipe loads successfully. These outputs are not validated clinical measurements.</p>
-          </div>
+          <p class="hero-copy">A calmer way to plan aesthetic goals, compare qualified providers, and arrive at consults with your research organized.</p>
+          <a class="hero-cta" href="https://forms.gle/JHVwsJKobCqDxJvh8" target="_blank" rel="noreferrer">Join the waitlist</a>
         </div>
       </div>
     </section>
 
-    <section class="section faq" id="faq">
-      <div>
-        <p class="section-label">FAQ</p>
-        <h2>Simple by design.</h2>
-      </div>
-      <div>
-        <details open>
-          <summary>What is Halo Revival?</summary>
-          <p>Halo Revival is an app for aesthetic planning, surgeon consult discovery, medspa search, and pre-consult organization.</p>
-        </details>
-        <details>
-          <summary>Is it only for surgery?</summary>
-          <p>No. Surgeons and medspas are separated, so surgical consults and non-surgical maintenance each have their own search flow.</p>
-        </details>
-        <details>
-          <summary>Does it replace medical advice?</summary>
-          <p>No. It helps organize research and booking steps. Treatment decisions should come from licensed clinicians.</p>
-        </details>
-        <details>
-          <summary>Is my planning private?</summary>
-          <p>The product is built around privacy-first planning. Sensitive keys and server-only data stay out of the public app bundle.</p>
-        </details>
-      </div>
+    <div class="rounded-panel">
+      <section class="section" id="how">
+        <div class="section-head">
+          <p class="kicker">/How it works</p>
+          <div>
+            <h2>Turn scattered aesthetic research into a consult-ready plan.</h2>
+            <p class="lead">Halo Revival is being built for people who want structure before they book: goals, providers, reference notes, questions, and next steps in one focused place.</p>
+          </div>
+          <span class="index">(01)</span>
+        </div>
+        <div class="steps">
+          <article class="step">
+            <div class="step-number">1</div>
+            <h3>Map the goal</h3>
+            <p>Separate face, body, revision, and medspa goals so every idea has a clear place instead of living across screenshots and notes.</p>
+          </article>
+          <article class="step">
+            <div class="step-number">2</div>
+            <h3>Compare providers</h3>
+            <p>Search surgeons and medspas by intent, location, consult type, and specialty before committing to a first appointment.</p>
+          </article>
+          <article class="step">
+            <div class="step-number">3</div>
+            <h3>Prep the consult</h3>
+            <p>Bring organized questions, reference images, goals, and decision points into the conversation with a qualified clinician.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" id="model">
+        <div class="section-head">
+          <p class="kicker">/The model</p>
+          <div>
+            <h2>A visual planning layer for better conversations.</h2>
+          </div>
+          <span class="index">(02)</span>
+        </div>
+        <div class="model-grid">
+          <div class="model-visual" aria-label="Clinical aesthetic planning"></div>
+          <div class="model-panel">
+            <div>
+              <h3>Research, references, and bookings move together.</h3>
+              <p>The product keeps aesthetic planning private and structured, with educational visual tools designed to support consult preparation, not replace medical judgment.</p>
+            </div>
+            <div class="mini-grid">
+              <div class="mini"><strong>Face planning</strong><span>Reference notes, mapped concerns, and educational visual context.</span></div>
+              <div class="mini"><strong>Provider search</strong><span>Separate pathways for surgeons, medspas, revision, and maintenance.</span></div>
+              <div class="mini"><strong>Consult flow</strong><span>Saved providers, booking requests, and pre-visit questions.</span></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="offer">
+        <div class="section-head">
+          <p class="kicker">/What it does</p>
+          <div>
+            <h2>One place for the full aesthetic path.</h2>
+          </div>
+          <span class="index">(03)</span>
+        </div>
+        <div class="offer-grid">
+          <article class="offer-card">
+            <div>
+              <div class="offer-number">1</div>
+              <h3>Surgeon discovery</h3>
+            </div>
+            <p>Browse procedure-focused surgeon profiles and compare options without losing the context of your goals.</p>
+          </article>
+          <article class="offer-card">
+            <div>
+              <div class="offer-number">2</div>
+              <h3>Medspa separation</h3>
+            </div>
+            <p>Keep injectables, laser, skin, wellness, and maintenance providers in their own clean workflow.</p>
+          </article>
+          <article class="offer-card">
+            <div>
+              <div class="offer-number">3</div>
+              <h3>Private planning notes</h3>
+            </div>
+            <p>Save goals, reference images, questions, and decision criteria before the consult pressure starts.</p>
+          </article>
+          <article class="offer-card">
+            <div>
+              <div class="offer-number">4</div>
+              <h3>Booking readiness</h3>
+            </div>
+            <p>Move from research to consult request with the important details already organized.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section reviews" id="reviews">
+        <div class="section-head">
+          <p class="kicker">/Reviews</p>
+          <div>
+            <h2>Built for people who want clarity before they book.</h2>
+          </div>
+          <span class="index">(04)</span>
+        </div>
+        <div class="review-grid">
+          <article class="review-card">
+            <div class="review-top"><span>★★★★★</span><span>4.9/5</span></div>
+            <blockquote>"Finally, a way to keep surgeon research, photos, and questions from becoming chaos."</blockquote>
+            <div class="review-person"><span class="avatar">M</span><span>Maya R.</span></div>
+          </article>
+          <article class="review-card">
+            <div class="review-top"><span>★★★★★</span><span>4.8/5</span></div>
+            <blockquote>"The separation between surgery planning and medspa upkeep is exactly how I think."</blockquote>
+            <div class="review-person"><span class="avatar">J</span><span>Julian K.</span></div>
+          </article>
+          <article class="review-card">
+            <div class="review-top"><span>★★★★★</span><span>5/5</span></div>
+            <blockquote>"It feels like a research lab for your own consult prep, but without the noise."</blockquote>
+            <div class="review-person"><span class="avatar">S</span><span>Sofia L.</span></div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" id="faq">
+        <div class="faq-grid">
+          <div>
+            <p class="kicker">/FAQ</p>
+            <h2>Simple by design.</h2>
+          </div>
+          <div>
+            <details open>
+              <summary>What is Halo Revival?</summary>
+              <p>A planning app for aesthetic goals, surgeon consult discovery, medspa research, saved providers, reference notes, and booking prep.</p>
+            </details>
+            <details>
+              <summary>Is it only for surgery?</summary>
+              <p>No. Surgical consults and non-surgical maintenance each get dedicated flows so the research stays easier to compare.</p>
+            </details>
+            <details>
+              <summary>Does it replace medical advice?</summary>
+              <p>No. Halo Revival is for organization and education. Treatment decisions should come from licensed clinicians.</p>
+            </details>
+            <details>
+              <summary>When can I try it?</summary>
+              <p>Join the waitlist and we will invite early users as the web and app previews open up.</p>
+            </details>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <section class="final">
+      <h2>Plan the consult before the consult plans you.</h2>
+      <a class="section-cta" href="https://forms.gle/JHVwsJKobCqDxJvh8" target="_blank" rel="noreferrer">Join the waitlist</a>
     </section>
   </main>
 
